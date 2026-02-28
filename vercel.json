@@ -1,0 +1,15 @@
+{
+  "rewrites": [
+    {
+      "source": "/spamagnific",
+      "destination": "/proposta_spamagnifique.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/spamagnific",
+      "permanent": true
+    }
+  ]
+}
