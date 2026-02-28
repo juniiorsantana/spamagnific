@@ -801,6 +801,24 @@
       color: rgba(217, 217, 217, .4);
     }
 
+    .timeline-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .timeline-layout {
+        grid-template-columns: 1fr;
+        gap: 64px;
+      }
+
+      .why-grid[style] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
     /* ─── WHY US ─── */
     .why-grid {
       display: grid;
@@ -1253,7 +1271,7 @@
                   </div>
                   <div class="deliverable">
                     <div class="deliverable-dot"></div>
-                    <div class="deliverable-text">Configuração de pagamento e frete</div>
+                    <div class="deliverable-text">Configuração de Tags e Pixel</div>
                   </div>
                   <div class="deliverable">
                     <div class="deliverable-dot"></div>
@@ -1471,11 +1489,11 @@
       <div class="container">
         <div class="reveal">
           <div class="section-tag">Cronograma</div>
-          <h2 class="section-title">De 0 ao ar<br />em 20 dias</h2>
+          <h2 class="section-title">Do 0 ao ar<br />em 20 dias</h2>
           <p class="section-desc">Processo ágil e estruturado para que você comece a ver resultados o quanto antes.</p>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start" class="reveal">
+        <div class="timeline-layout reveal">
           <div class="timeline">
             <div class="timeline-step" data-timeline>
               <div class="timeline-dot"></div>
