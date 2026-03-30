@@ -3,6 +3,14 @@
     {
       "source": "/spamagnific",
       "destination": "/proposta_spamagnifique.html"
+    },
+    {
+      "source": "/orcamento",
+      "destination": "/orcamento.html"
+    },
+    {
+      "source": "/gerador",
+      "destination": "/gerador.html"
     }
   ],
   "redirects": [

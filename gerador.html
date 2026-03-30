@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Orçamento - Spa Magnific</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="number"], input[type="email"] { width: 100%; padding: 8px; box-sizing: border-box; }
+        .service-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+        .service-row input { flex: 1; }
+        button { padding: 10px 15px; background: #0597F2; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #047bc2; }
+        .btn-remove { background: #ff4d4d; }
+        .btn-remove:hover { background: #cc0000; }
+        #link-container { margin-top: 20px; padding: 15px; background: #e9f7ef; border: 1px solid #c3e6cb; border-radius: 4px; display: none; word-break: break-all; }
+        #generated-link { font-weight: bold; color: #155724; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Orçamento Interno</h1>
+        
+        <div class="form-group">
+            <label for="client-name">Nome do Cliente</label>
+            <input type="text" id="client-name" placeholder="Ex: Maria Silva">
+        </div>
+        
+        <div class="form-group">
+            <label for="client-contact">E-mail ou Telefone</label>
+            <input type="text" id="client-contact" placeholder="Ex: (11) 99999-9999">
+        </div>
+
+        <h3>Serviços</h4>
+        <div id="services-container">
+            <div class="service-row">
+                <input type="text" class="svc-name" placeholder="Nome do Serviço" value="Sessão de Massagem Relaxante">
+                <input type="number" class="svc-price" placeholder="Preço (R$)" value="150">
+                <button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button>
+            </div>
+        </div>
+        
+        <button type="button" onclick="addService()">+ Adicionar Serviço</button>
+        
+        <hr style="margin: 20px 0;">
+        
+        <button type="button" onclick="generateQuote()" style="background: #1B21A6; width: 100%; font-size: 18px;">Gerar Link do Orçamento</button>
+
+        <div id="link-container">
+            <p>Link gerado (clique para abrir ou copie):</p>
+            <a href="#" id="generated-link" target="_blank"></a>
+            <div style="margin-top: 10px;">
+                <button type="button" onclick="copyLink()">Copiar Link</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addService() {
+            const container = document.getElementById('services-container');
+            const row = document.createElement('div');
+            row.className = 'service-row';
+            row.innerHTML = `
+                <input type="text" class="svc-name" placeholder="Nome do Serviço">
+                <input type="number" class="svc-price" placeholder="Preço (R$)">
+                <button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function generateQuote() {
+            const name = document.getElementById('client-name').value;
+            const contact = document.getElementById('client-contact').value;
+            
+            const serviceRows = document.querySelectorAll('.service-row');
+            const services = [];
+            
+            serviceRows.forEach(row => {
+                const svcName = row.querySelector('.svc-name').value;
+                const svcPrice = parseFloat(row.querySelector('.svc-price').value);
+                if (svcName && !isNaN(svcPrice)) {
+                    services.push({ name: svcName, price: svcPrice });
+                }
+            });
+            
+            const data = {
+                client: { name, contact },
+                services: services
+            };
+            
+            // Serialize to JSON, encode URI component to handle accents, then convert to base64
+            const jsonStr = JSON.stringify(data);
+            const encodedData = btoa(encodeURIComponent(jsonStr));
+            
+            // Create URL
+            const baseUrl = window.location.origin + '/orcamento';
+            const finalUrl = baseUrl + '?d=' + encodedData;
+            
+            const linkEl = document.getElementById('generated-link');
+            const linkContainer = document.getElementById('link-container');
+            
+            linkEl.href = finalUrl;
+            linkEl.textContent = finalUrl;
+            linkContainer.style.display = 'block';
+        }
+
+        function copyLink() {
+            const link = document.getElementById('generated-link').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Link copiado para a área de transferência!');
+            });
+        }
+    </script>
+</body>
+</html>

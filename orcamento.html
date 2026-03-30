@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orçamento — Spa Magnific</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #1B21A6;
+      --dark: #011526;
+      --sky: #0597F2;
+      --teal: #05F2DB;
+      --gray: #D9D9D9;
+      --white: #ffffff;
+      --glass: rgba(5, 151, 242, 0.08);
+      --glass2: rgba(5, 242, 219, 0.06);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── NOISE & ORBS ─── */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .orb {
+      position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+      filter: blur(100px); opacity: .25; animation: orbFloat 12s ease-in-out infinite;
+    }
+    .orb1 { width: 400px; height: 400px; background: var(--blue); top: -100px; left: -100px; }
+    .orb2 { width: 300px; height: 300px; background: var(--sky); bottom: 10%; right: -100px; animation-delay: -4s; }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(20px, -20px) scale(1.05); }
+    }
+
+    /* ─── LAYOUT ─── */
+    main { position: relative; z-index: 1; flex: 1; padding: 80px 0; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+
+    .header-text { margin-bottom: 60px; text-align: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; font-family: 'Syne', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 20px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: ''; width: 32px; height: 1px; background: var(--teal);
+    }
+
+    .title {
+      font-family: 'Syne', sans-serif; font-size: clamp(32px, 5vw, 56px); font-weight: 800;
+      line-height: 1.05; letter-spacing: -.02em; margin-bottom: 16px;
+    }
+    .subtitle {
+      font-size: 16px; color: rgba(217, 217, 217, .7); line-height: 1.7; max-width: 600px; margin: 0 auto;
+    }
+    .client-name { color: var(--teal); font-weight: bold; }
+
+    /* ─── QUOTE MODULES ─── */
+    .services-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+    
+    .service-item {
+      background: var(--glass);
+      border: 1px solid rgba(5, 151, 242, .12);
+      border-radius: 4px;
+      padding: 24px 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .service-item::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+      background: linear-gradient(var(--teal), var(--sky)); opacity: 0; transition: opacity .3s;
+    }
+    .service-item:hover {
+      border-color: rgba(5, 242, 219, .25); background: rgba(5, 242, 219, .05);
+    }
+    .service-item:hover::before { opacity: 1; }
+
+    .svc-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #fff; }
+    .svc-price { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--teal); }
+
+    /* ─── TOTAL ─── */
+    .total-box {
+      background: linear-gradient(135deg, rgba(27, 33, 166, .2), rgba(5, 242, 219, .05));
+      border: 1px solid rgba(5, 242, 219, .3);
+      padding: 40px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;
+      margin-top: 40px;
+    }
+    @media (max-width: 600px) {
+      .total-box { flex-direction: column; gap: 20px; text-align: center; }
+    }
+
+    .total-label {
+      font-size: 12px; letter-spacing: .15em; text-transform: uppercase; color: rgba(217, 217, 217, .6);
+      font-family: 'Syne', sans-serif; margin-bottom: 8px; display: block;
+    }
+    .total-amount {
+      font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 48px); font-weight: 800; line-height: 1;
+      color: white;
+    }
+    .contact-btn {
+      display: inline-block; padding: 16px 32px; background: var(--teal); color: var(--dark);
+      font-family: 'Syne', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      text-decoration: none; border-radius: 4px; font-size: 13px; transition: all .3s; white-space: nowrap;
+    }
+    .contact-btn:hover { background: white; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(5, 242, 219, .15); }
+
+    /* ─── LOADING & ERROR ─── */
+    .loader { text-align: center; padding: 100px 0; color: var(--teal); font-family: 'Syne', sans-serif; }
+    .error-msg { text-align: center; padding: 100px 0; color: #ff4d4d; }
+
+    footer {
+      text-align: center; padding: 40px 0; font-size: 12px; color: rgba(217, 217, 217, .4);
+      border-top: 1px solid rgba(255, 255, 255, .05); z-index: 1; position: relative; margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <main>
+    <div class="container" id="app">
+      <div class="loader">Carregando orçamento...</div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      &copy; 2026 Spa Magnific. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const app = document.getElementById('app');
+      
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataParam = urlParams.get('d');
+        
+        if (!dataParam) {
+          throw new Error("Link de orçamento inválido ou incompleto.");
+        }
+        
+        // Decode base64 and URI encode to handle any strange chars, then parse JSON
+        const jsonStr = decodeURIComponent(atob(dataParam));
+        const quoteData = JSON.parse(jsonStr);
+        
+        renderQuote(quoteData);
+      } catch (e) {
+        console.error("Erro ao decodificar orçamento:", e);
+        app.innerHTML = `
+          <div class="error-msg">
+            <h2>Ops! Não conseguimos carregar este orçamento.</h2>
+            <p style="margin-top: 10px; color: rgba(255,255,255,.6);">Certifique-se de que copiou o link completo.</p>
+          </div>
+        `;
+      }
+
+      function formatMoney(amount) {
+        return amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      }
+
+      function renderQuote(data) {
+        const clientName = data.client?.name || "Cliente Especial";
+        let total = 0;
+        
+        let servicesHtml = '';
+        if (data.services && data.services.length > 0) {
+          data.services.forEach(svc => {
+            total += svc.price || 0;
+            servicesHtml += `
+              <div class="service-item">
+                <div class="svc-name">${svc.name}</div>
+                <div class="svc-price">${formatMoney(svc.price)}</div>
+              </div>
+            `;
+          });
+        } else {
+          servicesHtml = `<p style="color: rgba(255,255,255,.5);">Nenhum serviço selecionado.</p>`;
+        }
+
+        const phoneContact = "5511999999999"; // Default phone or you could pull from static config
+        const encodedMsg = encodeURIComponent("Olá, gostei da proposta para o Spa Magnific e gostaria de aprovar o orçamento!");
+
+        app.innerHTML = `
+          <div class="header-text">
+            <span class="eyebrow">Proposta Comercial</span>
+            <h1 class="title">Seu Investimento</h1>
+            <p class="subtitle">Olá <span class="client-name">${clientName}</span>, preparamos este orçamento exclusivo focado no seu bem-estar e resultados.</p>
+          </div>
+
+          <div class="services-list">
+            ${servicesHtml}
+          </div>
+
+          <div class="total-box">
+            <div>
+              <span class="total-label">Investimento Total</span>
+              <div class="total-amount">${formatMoney(total)}</div>
+            </div>
+            <div>
+              <a href="https://wa.me/${phoneContact}?text=${encodedMsg}" target="_blank" class="contact-btn">
+                Aprovar Orçamento
+              </a>
+            </div>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
