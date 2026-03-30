@@ -9,6 +9,10 @@
       "destination": "/orcamento.html"
     },
     {
+      "source": "/drlucasnemes",
+      "destination": "/proposta_drlucasnemes.html"
+    },
+    {
       "source": "/gerador",
       "destination": "/gerador.html"
     }
