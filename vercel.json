@@ -28,7 +28,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/spamagnific",
+      "destination": "https://majorhub.com.br",
       "permanent": true
     }
   ]
