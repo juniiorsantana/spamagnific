@@ -19,6 +19,10 @@
     {
       "source": "/dramarisa",
       "destination": "/proposta_dramarisa.html"
+    },
+    {
+      "source": "/institutopiran",
+      "destination": "/proposta_institutopiran.html"
     }
   ],
   "redirects": [
