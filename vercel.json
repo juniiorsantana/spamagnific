@@ -20,6 +20,10 @@
       "source": "/dramarisa",
       "destination": "/proposta_dramarisa.html"
     },
+        {
+      "source": "/dracarolinelobo",
+      "destination": "/proposta_dracarolinelobo.html"
+    },
     {
       "source": "/institutopiran",
       "destination": "/proposta_institutopiran.html"
